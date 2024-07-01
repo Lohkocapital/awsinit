@@ -24,7 +24,7 @@ python3 pyinsert.py
 
 echo "AWS:"
 aws configure list
-aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].{Instance:InstanceId,Type:InstanceType,State:State.Name,Name:Tags[?Key=='Name']|[0].Value}" --output table
+aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].{Instance:InstanceId,Type:InstanceType,IP:PublicIpAddress,State:State.Name,Name:Tags[?Key=='Name']|[0].Value}" --output table
 
 echo "TERRAFORM:"
 terraform version
@@ -35,8 +35,8 @@ terraform version
 # fi
 
 
-# terraform init
-terraform apply
+terraform init
+terraform apply -auto-approve
 echo "TERRAFORM: Valmis"
 aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].{Instance:InstanceId,Type:InstanceType,State:State.Name,Name:Tags[?Key=='Name']|[0].Value}" --output table
 echo "Loppu"

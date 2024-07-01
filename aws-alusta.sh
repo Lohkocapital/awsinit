@@ -20,7 +20,7 @@ git pull $REPO_URL
 echo "GIT: Valmis"
 
 echo "PYTHON: "
-python3 pyinsert.py
+# python3 pyinsert.py
 
 echo "AWS:"
 aws configure list
@@ -38,5 +38,6 @@ terraform version
 terraform init
 terraform apply -auto-approve
 echo "TERRAFORM: Valmis"
-aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].{Instance:InstanceId,Type:InstanceType,State:State.Name,Name:Tags[?Key=='Name']|[0].Value}" --output table
+# aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].{Instance:InstanceId,Type:InstanceType,State:State.Name,Name:Tags[?Key=='Name']|[0].Value}" --output table
+aws ec2 describe-instances --filters "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].{Instance:InstanceId,Type:InstanceType,IP:PublicIpAddress,State:State.Name,Name:Tags[?Key=='Name']|[0].Value}" --output table
 echo "Loppu"
